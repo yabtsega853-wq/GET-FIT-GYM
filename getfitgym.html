@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GET FIT GYM — Unleash Your Potential | Addis Ababa</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Montserrat (Bold Condensed Vibe) & Inter (Clean Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#FF5500',
+              orangeHover: '#e04b00',
+              darkBg: '#080808',
+              cardBg: '#121212',
+              cardBorder: '#222222',
+            }
+          },
+          fontFamily: {
+            heading: ['Montserrat', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #080808;
+      color: #e0e0e0;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .font-heading {
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    /* Custom Glass Navigation Blur */
+    .glass-nav {
+      background: rgba(8, 8, 8, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    /* Hero Background with Dark Radial Vignette */
+    .hero-mask {
+      background: linear-gradient(90deg, #080808 0%, rgba(8, 8, 8, 0.75) 45%, rgba(8, 8, 8, 0.2) 100%),
+        linear-gradient(0deg, #080808 0%, transparent 40%);
+    }
+
+    /* Program Card Glow Effects */
+    .program-card {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .program-card:hover {
+      transform: translateY(-6px);
+      border-color: #FF5500;
+      box-shadow: 0 12px 30px rgba(255, 85, 0, 0.15);
+    }
+
+    /* Custom Schedule Active Tab State */
+    .tab-btn.active {
+      background-color: #FF5500;
+      color: #ffffff;
+      border-color: #FF5500;
+    }
+
+    /* Custom Progress Bar Animation */
+    .progress-bar-fill {
+      transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Custom Scrollbar for Timetable */
+    .custom-scrollbar::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #121212;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #ff5500;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+
+<body class="antialiased selection:bg-brand-orange selection:text-white">
+
+  <!-- ============ NAVIGATION BAR ============ -->
+  <nav class="fixed top-0 left-0 w-full z-50 glass-nav border-b border-neutral-900 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2 group">
+        <div
+          class="w-9 h-9 bg-brand-orange rounded-lg flex items-center justify-center font-heading font-black text-white text-xl tracking-tighter group-hover:scale-105 transition-transform">
+          G
+        </div>
+        <span class="font-heading font-extrabold text-2xl tracking-wider text-white uppercase">
+          GETFIT<span class="text-brand-orange">CORE</span>
+        </span>
+      </a>
+
+      <!-- Desktop Links -->
+      <div
+        class="hidden md:flex items-center space-x-8 text-xs font-semibold uppercase tracking-widest text-neutral-300">
+        <a href="#home" class="hover:text-brand-orange transition-colors">Home</a>
+        <a href="#programs" class="hover:text-brand-orange transition-colors">Programs</a>
+        <a href="#schedule" class="hover:text-brand-orange transition-colors">Schedule</a>
+        <a href="#about" class="hover:text-brand-orange transition-colors">About</a>
+        <a href="#trainers" class="hover:text-brand-orange transition-colors">Trainers</a>
+        <a href="#contact" class="hover:text-brand-orange transition-colors">Contact Us</a>
+      </div>
+
+      <!-- Action Button -->
+      <div class="hidden md:block">
+        <a href="https://wa.me/251" target="_blank" rel="noopener"
+          class="bg-brand-orange hover:bg-brand-orangeHover text-white font-heading font-bold text-xs uppercase tracking-widest px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-brand-orange/20">
+          Join Now
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="mobile-toggle" class="md:hidden text-neutral-300 hover:text-brand-orange focus:outline-none"
+        aria-label="Toggle Menu">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-neutral-950 border-b border-neutral-800 px-6 py-6 space-y-4">
+      <a href="#home"
+        class="block text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-brand-orange">Home</a>
+      <a href="#programs"
+        class="block text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-brand-orange">Programs</a>
+      <a href="#schedule"
+        class="block text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-brand-orange">Schedule</a>
+      <a href="#about"
+        class="block text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-brand-orange">About
+        Us</a>
+      <a href="#trainers"
+        class="block text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-brand-orange">Trainers</a>
+      <a href="#contact"
+        class="block text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-brand-orange">Contact</a>
+      <a href="https://wa.me/251" target="_blank" rel="noopener"
+        class="block w-full text-center bg-brand-orange text-white font-heading font-bold text-xs uppercase tracking-widest py-3 rounded-full">
+        Join Now
+      </a>
+    </div>
+  </nav>
+
+  <!-- ============ HERO SECTION ============ -->
+  <section id="home" class="relative min-h-screen pt-28 pb-16 flex items-center bg-brand-darkBg overflow-hidden">
+    <!-- Right Background Image Overlay (Desktop Split Look) -->
+    <div class="absolute inset-y-0 right-0 w-full lg:w-3/5 bg-cover bg-center opacity-80 lg:opacity-100 z-0"
+      style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=80');">
+      <div class="absolute inset-0 hero-mask"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
+      <div class="max-w-2xl">
+        <!-- Amharic Welcome Badge -->
+        <div
+          class="inline-flex items-center gap-2 bg-neutral-900/90 border border-neutral-800 px-4 py-2 rounded-full mb-6">
+          <span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
+          <span class="text-xs font-medium text-brand-orange tracking-wide">እንኳን ወደ GET FIT GYM በደህና መጡ</span>
+        </div>
+
+        <!-- Main Heading -->
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black uppercase text-white leading-none tracking-tight mb-6">
+          UNLEASH YOUR <br />
+          <span class="text-brand-orange">POTENTIAL</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-neutral-400 text-sm sm:text-base leading-relaxed mb-8 max-w-lg">
+          Join a community where goals are crushed, strength is built, and potential becomes power. Addis Ababa’s
+          premier fitness destination.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="https://wa.me/251" target="_blank" rel="noopener"
+            class="bg-brand-orange hover:bg-brand-orangeHover text-white font-heading font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all shadow-xl shadow-brand-orange/25">
+            Get Started
+          </a>
+          <a href="#programs"
+            class="bg-neutral-900/80 hover:bg-neutral-800 text-white border border-neutral-700 font-heading font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all">
+            Explore More
+          </a>
+        </div>
+
+        <!-- Metric Counters -->
+        <div class="grid grid-cols-3 gap-6 pt-12 mt-12 border-t border-neutral-800/80">
+          <div>
+            <span class="block font-heading font-black text-2xl sm:text-3xl text-white">4.7★</span>
+            <span class="text-xs text-neutral-400 uppercase tracking-wider">Google Rating</span>
+          </div>
+          <div>
+            <span class="block font-heading font-black text-2xl sm:text-3xl text-white">12+</span>
+            <span class="text-xs text-neutral-400 uppercase tracking-wider">Expert Coaches</span>
+          </div>
+          <div>
+            <span class="block font-heading font-black text-2xl sm:text-3xl text-white">1000+</span>
+            <span class="text-xs text-neutral-400 uppercase tracking-wider">Active Members</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OUR PROGRAMS SECTION ============ -->
+  <section id="programs" class="py-24 bg-brand-darkBg px-6 border-t border-neutral-900">
+    <div class="max-w-7xl mx-auto">
+      <!-- Section Header -->
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-black uppercase text-white tracking-tight mb-3">
+          OUR <span class="text-brand-orange">PROGRAMS</span>
+        </h2>
+        <p class="text-neutral-400 text-sm max-w-md mx-auto">
+          Discover the perfect programs to match your goals and fitness level.
+        </p>
+      </div>
+
+      <!-- Programs 2x2 Grid -->
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Card 1: Personal Training -->
+        <div
+          class="program-card relative h-80 rounded-2xl overflow-hidden border border-neutral-800 bg-brand-cardBg group">
+          <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80" alt="Personal Training"
+            class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-700" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <h3 class="text-2xl font-black uppercase text-white mb-2">PERSONAL TRAINING</h3>
+            <p class="text-xs text-neutral-300 max-w-xs leading-relaxed mb-4">
+              One-on-one coaching tailored to your unique goals, schedule, and fitness level.
+            </p>
+            <a href="https://wa.me/251" target="_blank"
+              class="self-end w-10 h-10 rounded-full bg-brand-orange flex items-center justify-center text-white transition-transform group-hover:scale-110">
+              ➔
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2: Strength Training -->
+        <div
+          class="program-card relative h-80 rounded-2xl overflow-hidden border border-neutral-800 bg-brand-cardBg group">
+          <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&q=80" alt="Strength Training"
+            class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-700" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <h3 class="text-2xl font-black uppercase text-white mb-2">STRENGTH TRAINING</h3>
+            <p class="text-xs text-neutral-300 max-w-xs leading-relaxed mb-4">
+              Build muscle, increase power, and transform your body with specialized equipment.
+            </p>
+            <a href="https://wa.me/251" target="_blank"
+              class="self-end w-10 h-10 rounded-full bg-brand-orange flex items-center justify-center text-white transition-transform group-hover:scale-110">
+              ➔
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3: HIIT Classes -->
+        <div
+          class="program-card relative h-80 rounded-2xl overflow-hidden border border-neutral-800 bg-brand-cardBg group">
+          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80" alt="HIIT Classes"
+            class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-700" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <h3 class="text-2xl font-black uppercase text-white mb-2">HIIT CLASSES</h3>
+            <p class="text-xs text-neutral-300 max-w-xs leading-relaxed mb-4">
+              High-intensity interval training that burns calories and builds endurance in record time.
+            </p>
+            <a href="https://wa.me/251" target="_blank"
+              class="self-end w-10 h-10 rounded-full bg-brand-orange flex items-center justify-center text-white transition-transform group-hover:scale-110">
+              ➔
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 4: Fitness Training -->
+        <div
+          class="program-card relative h-80 rounded-2xl overflow-hidden border border-neutral-800 bg-brand-cardBg group">
+          <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&q=80" alt="Fitness Training"
+            class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-700" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <h3 class="text-2xl font-black uppercase text-white mb-2">FUNCTIONAL FITNESS</h3>
+            <p class="text-xs text-neutral-300 max-w-xs leading-relaxed mb-4">
+              Improve flexibility, stamina, and overall core agility with structured group classes.
+            </p>
+            <a href="https://wa.me/251" target="_blank"
+              class="self-end w-10 h-10 rounded-full bg-brand-orange flex items-center justify-center text-white transition-transform group-hover:scale-110">
+              ➔
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT FEATURE SECTION ============ -->
+  <section id="about" class="py-24 bg-neutral-950 px-6 border-t border-neutral-900">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+      <!-- Left Image Showcase -->
+      <div class="relative rounded-2xl overflow-hidden border border-neutral-800 h-96 sm:h-[480px]">
+        <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=900&q=80" alt="Fitness Spotlight"
+          class="w-full h-full object-cover filter grayscale contrast-125" />
+        <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent"></div>
+        <div class="absolute bottom-6 left-6 border-l-4 border-brand-orange pl-4">
+          <p class="text-white font-heading font-black text-xl">PROVEN RESULTS</p>
+          <p class="text-xs text-neutral-400">Addis Ababa’s elite strength center</p>
+        </div>
+      </div>
+
+      <!-- Right Content -->
+      <div>
+        <h2 class="text-4xl sm:text-5xl font-black uppercase text-white leading-tight mb-6 tracking-tight">
+          GIVE SHAPE TO <br />
+          <span class="text-brand-orange">YOUR BODY</span>
+        </h2>
+        <p class="text-neutral-400 text-sm leading-relaxed mb-8">
+          At <strong class="text-white">GET FIT GYM</strong>, we help you build strength, confidence, and lasting health
+          habits. With expert coaches, state-of-the-art conditioning zones, and proven training programs, we guide you
+          directly toward your best physical shape.
+        </p>
+
+        <div class="space-y-4 mb-8">
+          <div class="flex items-center gap-3">
+            <span
+              class="w-5 h-5 rounded-full bg-brand-orange/20 text-brand-orange flex items-center justify-center text-xs font-bold">✓</span>
+            <span class="text-sm font-semibold text-neutral-200">Certified International Level Trainers</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span
+              class="w-5 h-5 rounded-full bg-brand-orange/20 text-brand-orange flex items-center justify-center text-xs font-bold">✓</span>
+            <span class="text-sm font-semibold text-neutral-200">Modern Cardio & Heavy Power Racks</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span
+              class="w-5 h-5 rounded-full bg-brand-orange/20 text-brand-orange flex items-center justify-center text-xs font-bold">✓</span>
+            <span class="text-sm font-semibold text-neutral-200">Welcoming & Disciplined Community Atmosphere</span>
+          </div>
+        </div>
+
+        <a href="https://wa.me/251" target="_blank" rel="noopener"
+          class="inline-block bg-brand-orange hover:bg-brand-orangeHover text-white font-heading font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all shadow-lg shadow-brand-orange/20">
+          Explore More
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INTERACTIVE SCHEDULE SECTION ============ -->
+  <section id="schedule" class="py-24 bg-brand-darkBg px-6 border-t border-neutral-900">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-black uppercase text-white tracking-tight mb-3">
+          OUR <span class="text-brand-orange">SCHEDULE</span>
+        </h2>
+        <p class="text-neutral-400 text-sm max-w-md mx-auto">
+          Filter sessions by discipline and plan your weekly workout routine.
+        </p>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-2 mb-10">
+        <button
+          class="tab-btn active px-5 py-2.5 rounded-full border border-neutral-800 text-xs font-bold uppercase tracking-wider text-neutral-300 transition-all"
+          onclick="filterSchedule('all', this)">All Classes</button>
+        <button
+          class="tab-btn px-5 py-2.5 rounded-full border border-neutral-800 text-xs font-bold uppercase tracking-wider text-neutral-300 transition-all"
+          onclick="filterSchedule('cardio', this)">Cardio</button>
+        <button
+          class="tab-btn px-5 py-2.5 rounded-full border border-neutral-800 text-xs font-bold uppercase tracking-wider text-neutral-300 transition-all"
+          onclick="filterSchedule('hiit', this)">HIIT</button>
+        <button
+          class="tab-btn px-5 py-2.5 rounded-full border border-neutral-800 text-xs font-bold uppercase tracking-wider text-neutral-300 transition-all"
+          onclick="filterSchedule('bodybuilding', this)">Bodybuilding</button>
+        <button
+          class="tab-btn px-5 py-2.5 rounded-full border border-neutral-800 text-xs font-bold uppercase tracking-wider text-neutral-300 transition-all"
+          onclick="filterSchedule('crossfit', this)">Crossfit</button>
+      </div>
+
+      <!-- Timetable -->
+      <div class="overflow-x-auto custom-scrollbar rounded-2xl border border-neutral-800 bg-brand-cardBg">
+        <table class="w-full text-left text-xs border-collapse min-w-[700px]">
+          <thead>
+            <tr class="border-b border-neutral-800 bg-neutral-900/60 text-neutral-400 uppercase font-heading">
+              <th class="p-4 w-32">Day</th>
+              <th class="p-4">06:00 AM - 08:00 AM</th>
+              <th class="p-4">10:00 AM - 12:00 PM</th>
+              <th class="p-4">05:00 PM - 07:00 PM</th>
+              <th class="p-4">07:00 PM - 09:00 PM</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-800/60 font-medium">
+            <!-- Monday -->
+            <tr class="hover:bg-neutral-900/40 transition-colors">
+              <td class="p-4 font-bold text-white uppercase bg-neutral-900/30">Monday</td>
+              <td class="p-4 schedule-item cardio"><span class="text-brand-orange font-bold block">Cardio
+                  Burn</span><span class="text-neutral-500">Coach Solomon</span></td>
+              <td class="p-4 schedule-item bodybuilding"><span class="text-white font-bold block">Heavy
+                  Lifting</span><span class="text-neutral-500">Coach Abel</span></td>
+              <td class="p-4 schedule-item hiit"><span class="text-brand-orange font-bold block">HIIT
+                  Express</span><span class="text-neutral-500">Coach Tigist</span></td>
+              <td class="p-4 schedule-item crossfit"><span class="text-white font-bold block">Crossfit WOD</span><span
+                  class="text-neutral-500">Coach Dawit</span></td>
+            </tr>
+            <!-- Tuesday -->
+            <tr class="hover:bg-neutral-900/40 transition-colors">
+              <td class="p-4 font-bold text-white uppercase bg-neutral-900/30">Tuesday</td>
+              <td class="p-4 schedule-item crossfit"><span class="text-white font-bold block">Crossfit WOD</span><span
+                  class="text-neutral-500">Coach Dawit</span></td>
+              <td class="p-4 schedule-item cardio"><span class="text-brand-orange font-bold block">Cardio
+                  Circuit</span><span class="text-neutral-500">Coach Solomon</span></td>
+              <td class="p-4 schedule-item bodybuilding"><span
+                  class="text-white font-bold block">Hypertrophy</span><span class="text-neutral-500">Coach Abel</span>
+              </td>
+              <td class="p-4 schedule-item hiit"><span class="text-brand-orange font-bold block">HIIT Core</span><span
+                  class="text-neutral-500">Coach Tigist</span></td>
+            </tr>
+            <!-- Wednesday -->
+            <tr class="hover:bg-neutral-900/40 transition-colors">
+              <td class="p-4 font-bold text-white uppercase bg-neutral-900/30">Wednesday</td>
+              <td class="p-4 schedule-item hiit"><span class="text-brand-orange font-bold block">HIIT
+                  Express</span><span class="text-neutral-500">Coach Tigist</span></td>
+              <td class="p-4 schedule-item bodybuilding"><span
+                  class="text-white font-bold block">Powerlifting</span><span class="text-neutral-500">Coach Abel</span>
+              </td>
+              <td class="p-4 schedule-item cardio"><span class="text-brand-orange font-bold block">Cardio
+                  Endurance</span><span class="text-neutral-500">Coach Solomon</span></td>
+              <td class="p-4 schedule-item crossfit"><span class="text-white font-bold block">Crossfit Pro</span><span
+                  class="text-neutral-500">Coach Dawit</span></td>
+            </tr>
+            <!-- Thursday -->
+            <tr class="hover:bg-neutral-900/40 transition-colors">
+              <td class="p-4 font-bold text-white uppercase bg-neutral-900/30">Thursday</td>
+              <td class="p-4 schedule-item bodybuilding"><span class="text-white font-bold block">Leg & Core
+                  Day</span><span class="text-neutral-500">Coach Abel</span></td>
+              <td class="p-4 schedule-item hiit"><span class="text-brand-orange font-bold block">HIIT
+                  Circuit</span><span class="text-neutral-500">Coach Tigist</span></td>
+              <td class="p-4 schedule-item crossfit"><span class="text-white font-bold block">Crossfit
+                  Skills</span><span class="text-neutral-500">Coach Dawit</span></td>
+              <td class="p-4 schedule-item cardio"><span class="text-brand-orange font-bold block">Fat
+                  Burner</span><span class="text-neutral-500">Coach Solomon</span></td>
+            </tr>
+            <!-- Friday -->
+            <tr class="hover:bg-neutral-900/40 transition-colors">
+              <td class="p-4 font-bold text-white uppercase bg-neutral-900/30">Friday</td>
+              <td class="p-4 schedule-item cardio"><span class="text-brand-orange font-bold block">Cardio
+                  Endurance</span><span class="text-neutral-500">Coach Solomon</span></td>
+              <td class="p-4 schedule-item crossfit"><span class="text-white font-bold block">Crossfit Open</span><span
+                  class="text-neutral-500">Coach Dawit</span></td>
+              <td class="p-4 schedule-item bodybuilding"><span class="text-white font-bold block">Upper Body
+                  Sculpt</span><span class="text-neutral-500">Coach Abel</span></td>
+              <td class="p-4 schedule-item hiit"><span class="text-brand-orange font-bold block">HIIT Night
+                  Shift</span><span class="text-neutral-500">Coach Tigist</span></td>
+            </tr>
+            <!-- Saturday -->
+            <tr class="hover:bg-neutral-900/40 transition-colors">
+              <td class="p-4 font-bold text-white uppercase bg-neutral-900/30">Saturday</td>
+              <td class="p-4 schedule-item crossfit"><span class="text-white font-bold block">Weekend
+                  Challenge</span><span class="text-neutral-500">All Coaches</span></td>
+              <td class="p-4 schedule-item hiit"><span class="text-brand-orange font-bold block">Full Body
+                  Blast</span><span class="text-neutral-500">Coach Tigist</span></td>
+              <td class="p-4 schedule-item cardio"><span class="text-brand-orange font-bold block">Mobility &
+                  Stretch</span><span class="text-neutral-500">Coach Solomon</span></td>
+              <td class="p-4 schedule-item bodybuilding"><span class="text-white font-bold block">Open Gym
+                  Workout</span><span class="text-neutral-500">Staff</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRAINERS & SKILLS SECTION ============ -->
+  <section id="trainers" class="py-24 bg-neutral-950 px-6 border-t border-neutral-900">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+      <!-- Left Image -->
+      <div class="relative rounded-2xl overflow-hidden border border-neutral-800 h-96 sm:h-[480px]">
+        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=900&q=80" alt="Trainer Coaching"
+          class="w-full h-full object-cover filter grayscale contrast-125" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+      </div>
+
+      <!-- Right Content & Skill Bars -->
+      <div>
+        <h2 class="text-3xl sm:text-4xl font-black uppercase text-white leading-tight mb-4 tracking-tight">
+          GET STRONGER AND FITTER WITH OUR <br />
+          <span class="text-brand-orange">EXPERIENCED TRAINERS</span>
+        </h2>
+        <p class="text-neutral-400 text-sm mb-8 leading-relaxed">
+          Build strength and confidence with guidance from our expert coaches, dedicated exclusively to your personal
+          fitness transformation.
+        </p>
+
+        <!-- Progress Bar 1 -->
+        <div class="mb-6">
+          <div class="flex justify-between text-xs font-bold uppercase tracking-wider mb-2">
+            <span class="text-white">Fitness Training</span>
+            <span class="text-brand-orange">90%</span>
+          </div>
+          <div class="w-full h-2 rounded-full bg-neutral-900 overflow-hidden">
+            <div class="progress-bar-fill h-full bg-brand-orange rounded-full" style="width: 90%;"></div>
+          </div>
+        </div>
+
+        <!-- Progress Bar 2 -->
+        <div class="mb-6">
+          <div class="flex justify-between text-xs font-bold uppercase tracking-wider mb-2">
+            <span class="text-white">Cardio Workout</span>
+            <span class="text-brand-orange">85%</span>
+          </div>
+          <div class="w-full h-2 rounded-full bg-neutral-900 overflow-hidden">
+            <div class="progress-bar-fill h-full bg-brand-orange rounded-full" style="width: 85%;"></div>
+          </div>
+        </div>
+
+        <!-- Progress Bar 3 -->
+        <div class="mb-6">
+          <div class="flex justify-between text-xs font-bold uppercase tracking-wider mb-2">
+            <span class="text-white">Muscle Building</span>
+            <span class="text-brand-orange">92%</span>
+          </div>
+          <div class="w-full h-2 rounded-full bg-neutral-900 overflow-hidden">
+            <div class="progress-bar-fill h-full bg-brand-orange rounded-full" style="width: 92%;"></div>
+          </div>
+        </div>
+
+        <!-- Progress Bar 4 -->
+        <div class="mb-6">
+          <div class="flex justify-between text-xs font-bold uppercase tracking-wider mb-2">
+            <span class="text-white">Body Building</span>
+            <span class="text-brand-orange">88%</span>
+          </div>
+          <div class="w-full h-2 rounded-full bg-neutral-900 overflow-hidden">
+            <div class="progress-bar-fill h-full bg-brand-orange rounded-full" style="width: 88%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MEMBERSHIP PRICING SECTION ============ -->
+  <section class="py-24 bg-brand-darkBg px-6 border-t border-neutral-900">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-black uppercase text-white tracking-tight mb-3">
+          START YOUR BODY GOAL FROM <br />
+          <span class="text-brand-orange">CHOOSING OUR PACKAGE</span>
+        </h2>
+        <p class="text-neutral-400 text-sm max-w-md mx-auto">
+          Flexible pricing designed to match your training commitment.
+        </p>
+      </div>
+
+      <!-- Pricing Cards Grid -->
+      <div class="grid md:grid-cols-3 gap-8 items-stretch">
+        <!-- Basic Plan -->
+        <div
+          class="rounded-2xl border border-neutral-800 bg-brand-cardBg p-8 flex flex-col justify-between hover:border-neutral-700 transition-all">
+          <div>
+            <h3 class="text-xl font-black uppercase text-white mb-2">BASIC PLAN</h3>
+            <p class="text-xs text-neutral-400 mb-6">Essential gym access for casual workouts.</p>
+            <div class="text-4xl font-black text-white mb-6">
+              2,500 <span class="text-xs font-normal text-neutral-400">ETB / Month</span>
+            </div>
+            <ul class="space-y-3 text-xs text-neutral-300 mb-8 border-t border-neutral-800/80 pt-6">
+              <li class="flex items-center gap-2"><span class="text-brand-orange font-bold">✓</span> Full Equipment &
+                Floor Access</li>
+              <li class="flex items-center gap-2"><span class="text-brand-orange font-bold">✓</span> Locker & Shower
+                Access</li>
+              <li class="flex items-center gap-2"><span class="text-neutral-600">✕</span> Personal Trainer Guidance</li>
+              <li class="flex items-center gap-2"><span class="text-neutral-600">✕</span> Special Group Classes</li>
+            </ul>
+          </div>
+          <a href="https://wa.me/251" target="_blank"
+            class="w-full py-3.5 rounded-full border border-neutral-700 hover:bg-neutral-800 text-center text-xs font-bold uppercase tracking-wider text-white transition-colors">
+            Choose Plan
+          </a>
+        </div>
+
+        <!-- Regular Plan (Highlighted Popular) -->
+        <div
+          class="rounded-2xl border-2 border-brand-orange bg-brand-cardBg p-8 flex flex-col justify-between relative shadow-2xl shadow-brand-orange/10 transform md:-translate-y-2">
+          <span
+            class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-[10px] uppercase font-black tracking-widest py-1 px-4 rounded-full">POPULAR</span>
+          <div>
+            <h3 class="text-xl font-black uppercase text-white mb-2">REGULAR PLAN</h3>
+            <p class="text-xs text-neutral-400 mb-6">Our most popular choice for dedicated fitness seekers.</p>
+            <div class="text-4xl font-black text-white mb-6">
+              4,200 <span class="text-xs font-normal text-neutral-400">ETB / Month</span>
+            </div>
+            <ul class="space-y-3 text-xs text-neutral-300 mb-8 border-t border-neutral-800/80 pt-6">
+              <li class="flex items-center gap-2"><span class="text-brand-orange font-bold">✓</span> Full Equipment &
+                Floor Access</li>
+              <li class="flex items-center gap-2"><span class="text-brand-orange font-bold">✓</span> Locker & Shower
+                Access</li>
+              <li class="flex items-center gap-2"><span class="text-brand-orange font-bold">✓</span> Initial Fitness
+                Assessment</li>
+              <li class="flex items-center gap-2"><span class="text-brand-orange font-bold">✓</span> Unlimited Group
+                Classes</li>
+            </ul>
+          </div>
+          <a href="https://wa.me/251" target="_blank"
+            class="w-full py-3.5 rounded-full bg-brand-orange hover:bg-brand-orangeHover text-center text-xs font-bold uppercase tracking-wider text-white transition-colors shadow-lg shadow-brand-orange/20">
+            Choose Plan
+          </a>
+        </div>
+
+        <!-- Premium Plan -->
+        <div
+          class="rounded-2xl border border-neutral-800 bg-brand-cardBg p-8 flex flex-col justify-between hover:border-neutral-700 transition-all">
+          <div>
+            <h3 class="text-xl font-black uppercase text-white mb-2">PREMIUM PLAN</h3>
+            <p class="text-xs text-neutral-400 mb-6">Comprehensive coaching and maximum results.</p>
+            <div class="text-4xl font-black text-white mb-6">
+              7,500 <span class="text-xs font-normal text-neutral-400">ETB / Month</span>
+            </div>
+            <ul class="space-y-3 text-xs text-neutral-300 mb-8 border-t border-neutral-800/80 pt-6">
+              <li class="flex items-center gap-2"><span class="text-brand-orange font-bold">✓</span> All Regular Plan
+                Features</li>
+              <li class="flex items-center gap-2"><span class="text-brand-orange font-bold">✓</span> 8 Personal Coaching
+                Sessions</li>
+              <li class="flex items-center gap-2"><span class="text-brand-orange font-bold">✓</span> Custom Nutrition &
+                Diet Plan</li>
+              <li class="flex items-center gap-2"><span class="text-brand-orange font-bold">✓</span> VIP Guest Access
+                Pass</li>
+            </ul>
+          </div>
+          <a href="https://wa.me/251" target="_blank"
+            class="w-full py-3.5 rounded-full border border-neutral-700 hover:bg-neutral-800 text-center text-xs font-bold uppercase tracking-wider text-white transition-colors">
+            Choose Plan
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LOCATION & CONTACT SECTION ============ -->
+  <section id="contact" class="py-24 bg-neutral-950 px-6 border-t border-neutral-900">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+      <!-- Map Frame -->
+      <div class="rounded-2xl overflow-hidden border border-neutral-800 h-96 shadow-2xl">
+        <iframe class="w-full h-full border-0 filter invert-[0.9] hue-rotate-180 contrast-90"
+          src="https://maps.google.com/maps?q=9.0219445,38.8013949&z=15&output=embed" allowfullscreen="" loading="lazy"
+          title="GET FIT GYM Location Map">
+        </iframe>
+      </div>
+
+      <!-- Contact Details -->
+      <div>
+        <h2 class="text-3xl sm:text-4xl font-black uppercase text-white tracking-tight mb-6">
+          FIND US IN <span class="text-brand-orange">ADDIS ABABA</span>
+        </h2>
+
+        <div class="space-y-6 mb-8">
+          <div class="flex items-start gap-4">
+            <div
+              class="w-10 h-10 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange flex items-center justify-center shrink-0">
+              📍
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white uppercase">Address</h4>
+              <p class="text-xs text-neutral-400 mt-1">2PPJ+R82, Addis Ababa, Ethiopia</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div
+              class="w-10 h-10 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange flex items-center justify-center shrink-0">
+              ⏰
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white uppercase">Gym Hours</h4>
+              <p class="text-xs text-neutral-400 mt-1">Monday – Sunday: 5:00 AM – 10:00 PM</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div
+              class="w-10 h-10 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange flex items-center justify-center shrink-0">
+              💬
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white uppercase">Direct WhatsApp</h4>
+              <p class="text-xs text-neutral-400 mt-1">Quick responses for membership questions and personal training
+                slots.</p>
+            </div>
+          </div>
+        </div>
+
+        <a href="https://wa.me/251" target="_blank" rel="noopener"
+          class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#1ebe5a] text-white font-heading font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all shadow-xl">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="bg-black py-10 px-6 border-t border-neutral-900 text-xs text-neutral-500">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div
+          class="w-6 h-6 bg-brand-orange rounded flex items-center justify-center font-heading font-black text-white text-xs">
+          G</div>
+        <span class="font-heading font-extrabold text-white uppercase tracking-wider text-sm">FIT<span
+            class="text-brand-orange">CORE</span></span>
+      </div>
+      <p>© 2026 GET FIT GYM Addis Ababa. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Floating Sticky WhatsApp Widget -->
+  <a href="https://wa.me/251" target="_blank" rel="noopener" aria-label="Contact on WhatsApp"
+    class="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#1ebe5a] text-white p-4 rounded-full shadow-2xl transition-all transform hover:scale-110 flex items-center justify-center">
+    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+      <path
+        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg>
+  </a>
+
+  <!-- ============ JAVASCRIPT ============ -->
+  <script>
+    // Mobile navigation menu toggle
+    const toggleBtn = document.getElementById('mobile-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    toggleBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // Schedule Tab Filter Functionality
+    function filterSchedule(category, btnElement) {
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      btnElement.classList.add('active');
+
+      const items = document.querySelectorAll('.schedule-item');
+      items.forEach(item => {
+        if (category === 'all' || item.classList.contains(category)) {
+          item.style.opacity = '1';
+          item.style.filter = 'none';
+        } else {
+          item.style.opacity = '0.2';
+          item.style.filter = 'grayscale(1)';
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>
